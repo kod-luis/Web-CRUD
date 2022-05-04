@@ -1,0 +1,17 @@
+{% extends 'crud/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<form method="post" style="padding:40px" novalidate>
+    {% csrf_token %}
+    {{ form.nome|as_crispy_field }}
+    {{ form.idade|as_crispy_field }}
+    {{ form.tipo|as_crispy_field }}
+    {{ form.raca|as_crispy_field }}
+    {{ form.dono|as_crispy_field }}
+    {{ form.telefone|as_crispy_field }}
+    <br></br>
+    <button type="submit" class="btn btn-success" style="padding:10px">Salvar</button>
+</form>
+{% endblock  %}

@@ -1,0 +1,35 @@
+{% extends 'crud/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h1 align="center">PETSHOP</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h2 align="left">Lista de Animais da PetShop
+                <a href=""><button type="button" class="btn btn-success">Adicionar</button></a>
+            </h2>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <th>ID</th>
+                    <th style="width:80%">Nome</th>
+                    <th>Ações</th>
+                </thead>
+                <tbody>
+                    {% for animais in animais_list %}
+                        <tr>
+                            <td>{{ animais.pk }}</td>
+                            <td>{{ animais.nome }}</td>
+                            <td>
+                                <a href="{% url 'info' animais.pk %}"><button type="button" class="btn btn-info">Editar</button></a>
+                                <a href=""><button type="button" class="btn btn-danger">Excluir</button></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
