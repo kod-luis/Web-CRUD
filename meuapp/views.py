@@ -4,18 +4,31 @@ from .forms import AnimaisForm
 from django.views.generic import ListView, DetailView
 
 # Create your views here.
-class IndexView(ListView):
-    template_name = 'crud/index.html'
-    context_object_name = 'animais_list'
+def listapet(request):
+    animais = Animais.objects.all()
+    return render(request, 'crud/index.html', {'animais':animais})
+
+def saveform(request, pk=0, temp_name='crud/info.html'):
+    if pk == 0: #adicionando
+        if request.method == 'POST':
+            form = AnimaisForm(request.POST)            
+            if form.is_valid():
+                form.save()
+                return redirect('index')
+
+        form = AnimaisForm()
+    else: #editando
+        animal = get_object_or_404(Animais, pk=pk)
+        form = AnimaisForm(request.POST or None, instance=animal)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
     
-    def get_queryset(self):
-        return Animais.objects.all()
+    return render(request, temp_name, {'form':form})
 
-def infoview(request, pk, template_name='crud/info.html'):
-    post = get_object_or_404(Animais, pk=pk)
-    form = AnimaisForm(request.POST or None, instance=post)
-    return render(request, template_name, {'form':form})
-
-'''def IndexView(request):
-    produtos = Produto.objects.all()
-    return render(request, 'produtos.html', {'produtos'})'''
+def deletapet(request, pk):
+    animal = get_object_or_404(Animais, pk=pk)
+    if request.method == 'POST':
+        animal.delete()
+        return redirect('index')
+    return render(request, 'crud/confirm_del.html', {'animal':animal})

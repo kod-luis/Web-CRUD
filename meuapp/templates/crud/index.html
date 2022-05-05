@@ -3,12 +3,9 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <h1 align="center">PETSHOP</h1>
-    </div>
-    <div class="row">
         <div class="col-md-12">
             <h2 align="left">Lista de Animais da PetShop
-                <a href=""><button type="button" class="btn btn-success">Adicionar</button></a>
+                <a href="{% url 'add' %}"><button type="button" class="btn btn-success">Adicionar</button></a>
             </h2>
             <table class="table table-bordered table-striped">
                 <thead>
@@ -17,13 +14,13 @@
                     <th>Ações</th>
                 </thead>
                 <tbody>
-                    {% for animais in animais_list %}
+                    {% for animal in animais %}
                         <tr>
-                            <td>{{ animais.pk }}</td>
-                            <td>{{ animais.nome }}</td>
+                            <td>{{ animal.pk }}</td>
+                            <td>{{ animal.nome }}</td>
                             <td>
-                                <a href="{% url 'info' animais.pk %}"><button type="button" class="btn btn-info">Editar</button></a>
-                                <a href=""><button type="button" class="btn btn-danger">Excluir</button></a>
+                                <a href="{% url 'info' animal.pk %}"><button type="button" class="btn btn-info">Editar</button></a>
+                                <a href="{% url 'del' animal.pk %}"><button type="button" class="btn btn-danger">Excluir</button></a>
                             </td>
                         </tr>
                     {% endfor %}

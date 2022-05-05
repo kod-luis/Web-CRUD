@@ -1,0 +1,17 @@
+{% extends 'crud/base.html' %}
+{% block content %}
+<div class="container" style="padding:20px;">
+    <div class="row">
+        <div class="col-md-10 col-xs-10 col-sm-10">
+            <form method="post">
+                {% csrf_token %}
+                <div class="alert alert-warning">
+                    Deseja realmente deletar {{ animal.nome }} ?
+                </div>
+                <button type="submit" class="btn btn-danger">Deletar</button>
+                <a href="{% url 'index' %}"><button type="button" class="btn btn-info">Voltar</button></a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock  %}
